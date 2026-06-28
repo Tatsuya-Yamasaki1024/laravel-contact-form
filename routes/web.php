@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('contact.index');
-});
+Route::get('/', [ContactController::class, 'index']);
+
