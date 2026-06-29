@@ -11,7 +11,7 @@ class ContactRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,19 +22,16 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'integer', 'in:1,2,3'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'tel' => ['required', 'string', 'regex:/^[0-9]{10,11}$/'],
+            'address' => ['required', 'string', 'max:255'],
+            'building' => ['nullable', 'string', 'max:255'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'detail' => ['required', 'string', 'max:120'],
         ];
     }
 }
 
-/*
-first_name, last_name	必須 / string / max:255
-gender	必須 / integer / in:1,2,3
-email	必須 / string / email / max:255
-tel	必須 / string / regex:/^[0-9]{10,11}$/
-address	必須 / string / max:255
-building	nullable / string / max:255
-category_id	必須 / integer / exists:categories,id
-detail	必須 / string / max:120
-
-*/
