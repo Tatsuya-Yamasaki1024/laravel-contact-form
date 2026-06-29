@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Tag;
-use App\Http\Requests\ContactRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Contact;
 
 class ContactController extends Controller
@@ -17,7 +17,7 @@ class ContactController extends Controller
         return view('contact.index', compact('categories', 'tags'));
 
     }
-    public function confirm(ContactRequest $request)
+    public function confirm(StoreContactRequest $request)
     {
         $validated = $request->validated();
         $category = Category::findOrFail($validated['category_id']);
@@ -25,7 +25,7 @@ class ContactController extends Controller
         return view('contact.confirm', compact('validated', 'category', 'tags'));
     }
 
-    public function store(ContactRequest $request)
+    public function store(StoreContactRequest $request)
     {
         $validated = $request->validated();
         $contact = Contact::create($validated);
