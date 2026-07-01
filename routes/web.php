@@ -29,6 +29,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])
         ->name('admin.index');
 
+    Route::get('/contacts/{contact}', [AdminController::class, 'show'])
+        ->name('admin.show');
+
+    Route::delete('/contacts/{contact}', [AdminController::class, 'destroy'])
+        ->name('admin.destroy');
+
     Route::post('/tags', [TagController::class, 'store'])
         ->name('admin.tags.store');
 
