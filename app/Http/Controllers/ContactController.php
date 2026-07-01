@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Tag;
 use App\Http\Requests\StoreContactRequest;
+use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Tag;
 
 class ContactController extends Controller
 {
@@ -17,11 +17,13 @@ class ContactController extends Controller
         return view('contact.index', compact('categories', 'tags'));
 
     }
+
     public function confirm(StoreContactRequest $request)
     {
         $validated = $request->validated();
         $category = Category::findOrFail($validated['category_id']);
         $tags = Tag::whereIn('id', $validated['tag_ids'] ?? [])->get();
+
         return view('contact.confirm', compact('validated', 'category', 'tags'));
     }
 
@@ -30,7 +32,7 @@ class ContactController extends Controller
         $validated = $request->validated();
         $contact = Contact::create($validated);
 
-        if (!empty($validated['tags'])) {
+        if (! empty($validated['tags'])) {
             $contact->tags()->attach($validated['tags']);
         }
 
@@ -41,6 +43,4 @@ class ContactController extends Controller
     {
         return view('contact.thanks');
     }
-
-
 }
