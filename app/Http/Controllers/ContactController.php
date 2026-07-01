@@ -32,8 +32,8 @@ class ContactController extends Controller
         $validated = $request->validated();
         $contact = Contact::create($validated);
 
-        if (! empty($validated['tags'])) {
-            $contact->tags()->attach($validated['tags']);
+        if (! empty($validated['tag_ids'])) {
+            $contact->tags()->attach($validated['tag_ids']);
         }
 
         return redirect()->route('contacts.thanks');
